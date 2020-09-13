@@ -1,0 +1,5 @@
+a = input()
+s = int(input()) % len(a)
+print(a[s:] + a[:s])
+print(a)
+print(a[-s:] + a[:-s])
