@@ -19,33 +19,59 @@ class Point:
     def __invert__(self):
         return Point(self.name, self.y, self.x)
 
+    def __repr__(self):
+        return f"Point('{self.name}', {self.x}, {self.y})"
 
-P1 = Point('p1', 37, 766545)
-P2 = Point('p2',  1223, -5543)
-P3 = Point('p3', -11111111111, 44444444444444)
-P4 = ~P1
-P5 = ~P3
-P6 = ~P2
-print(P1, P2, P3, P4, P5, P6)
+    def __lt__(self, other):
+        if self.name == other.name:
+            if self.x == other.x:
+                return self.y < other.y
+            return self.x < other.x
+        return self.name < other.name
 
-P7 = ~P6
-P8 = ~P5
-P9 = ~P4
-print(P7, P8, P9)
+    def __gt__(self, other):
+        if self.name == other.name:
+            if self.x == other.x:
+                return self.y > other.y
+            return self.x > other.x
+        return self.name > other.name
 
-if P1.get_x() == P9.get_x() and P1.get_y() == P9.get_y():
-    print("yes")
-else:
-    print("no")
-if P2.get_x() == P7.get_x() and P7.get_y() == P2.get_y():
-    print("yes")
-else:
-    print("no")
-if P8.get_x() == P5.get_x() and P8.get_y() == P5.get_y():
-    print("yes")
-else:
-    print("no")
-if P8.get_x() == P3.get_x() and P8.get_y() == P3.get_y():
-    print("yes")
-else:
-    print("no")
+    def __le__(self, other):
+        if self.name == other.name:
+            if self.x == other.x:
+                return self.y <= other.y
+            return self.x < other.x
+        return self.name < other.name
+
+    def __ge__(self, other):
+        if self.name == other.name:
+            if self.x == other.x:
+                return self.y >= other.y
+            return self.x > other.x
+        return self.name > other.name
+
+    def __eq__(self, other):
+        return (self.name == other.name and
+                self.x == other.x and
+                self.y == other.y)
+
+    def __ne__(self, other):
+        return (self.name != other.name or
+                self.x != other.x or
+                self.y != other.y)
+
+
+p_A1 = Point('A', 1, 2)
+p_A2 = Point('A', 2, 1)
+p_B1 = Point('B', 2, 3)
+p_B2 = Point('B', 2, 3)
+print(p_A1 == p_A2, p_B1 == p_B2)
+print(p_A1 != p_A2, p_B1 != p_B2)
+print(p_A1 < p_A2, p_B1 > p_B2)
+print(p_A1 >= p_A2, p_B1 <= p_B2)
+print(max(p_A1, p_B2, p_A2, p_B2))
+print(min(p_A1, p_B2, p_A2, p_B2))
+points = [Point('A', 101, 1), Point('B', -1, 0),
+          Point('A', 11, 0), Point('A', 111, -11)]
+points.sort()
+print(', '.join(map(str, points)))

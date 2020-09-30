@@ -1,15 +1,23 @@
 class Bell:
-    def __init__(self, *args1, **args2):
+    def __init__(self, *args, **kwargs):
         self.args_positional = []
-        for arg in args1:
+        for arg in args:
             self.args_positional.append(arg)
-        self.args_named = {arg: args2[arg] for arg in sorted(args2)}
+        self.args_named = {arg: kwargs[arg] for arg in sorted(kwargs)}
 
     def print_info(self):
         result = ''
-
-
-        print(result)
+        for i in self.args_named:
+            result += f'{i}: {self.args_named[i]}, '
+        if result != '' and len(self.args_positional):
+            result = result[:-2] + '; '
+        elif not len(self.args_positional):
+            result = result[:-2]
+        for i in self.args_positional:
+            result += f'{i}, '
+        if  len(self.args_positional):
+            result = result[:-2]
+        print(result.strip() if result != '' else '-')
 
 
 class BigBell(Bell):
@@ -42,3 +50,10 @@ class BellTower:
         for bell in self.bells:
             bell.sound()
         print('...')
+
+
+
+
+Bell("бронзовый").print_info()
+LittleBell("медный", нота="ля").print_info()
+BigBell(название="Корноухий", вес="1275 пудов").print_info()
