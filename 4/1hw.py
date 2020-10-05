@@ -18,7 +18,7 @@ class Example(QWidget):
         self.btn = QPushButton('+', self)
         self.btn.resize(self.btn.sizeHint())
         self.btn.move(72, 40)
-        self.btn.resize(30, 30)
+        self.btn.resize(30, 100)
         self.btn.clicked.connect(self.plus)
 
         self.btn = QPushButton('-', self)

@@ -5,4 +5,19 @@ a = {"й": "j", "ц": "c", "у": "u", "к": "k", "е": "e", "н": "n",
      "ч": "ch", "с": "s", "м": "m", "и": "i", "т": "t", "ь": "'",
      "б": "b", "ю": "ju", "ё": "jo"}
 
-b = int(input())
+
+with open('cyrillic.txt', 'r') as f:
+    b = f.read().splitlines()
+b = '\n'.join(b)
+res = ''
+for i in b:
+    if i.lower() in list(a.keys()):
+        if i.isupper():
+            res += a[i.lower()].capitalize()
+        else:
+            res += a[i.lower()]
+    else:
+        res += i
+print(res)
+with open('transliteration.txt', 'w') as f:
+    f.write(res)

@@ -24,14 +24,16 @@ class Example(QWidget):
         self.mes.move(20, 20)
         self.mes.setReadOnly(True)
 
-        self.btn1 = QPushButton(str(self.btn1num), self)
+        self.btn1 = QPushButton(self)
         self.btn1.move(20, 60)
         self.btn1.resize(90, 35)
+        self.btn1.setText(str(self.btn1num))
         self.btn1.clicked.connect(self.func)
 
-        self.btn2 = QPushButton(str(self.btn2num), self)
+        self.btn2 = QPushButton(self)
         self.btn2.move(230, 60)
         self.btn2.resize(90, 35)
+        self.btn2.setText(str(self.btn2num))
         self.btn2.clicked.connect(self.func)
 
         self.label1 = QLabel(self)
@@ -70,6 +72,8 @@ class Example(QWidget):
             self.moves = 10
             self.btn1num = randint(1, 10)
             self.btn2num = randint(-10, -1)
+            self.btn1.setText(str(self.btn1num))
+            self.btn2.setText(str(self.btn2num))
 
 
 if __name__ == '__main__':

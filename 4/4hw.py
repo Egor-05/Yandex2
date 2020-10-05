@@ -1,8 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QWidget, QCheckBox, QApplication, QTextEdit, QPushButton, QLineEdit
+from PyQt5.QtWidgets import QWidget, QCheckBox, QApplication, QTextEdit, QPushButton
 
 
-class Example(QWidget)
+class Example(QWidget):
+
     lst = []
 
     def __init__(self):
@@ -16,27 +17,21 @@ class Example(QWidget)
         self.setGeometry(375, 400, 375, 400)
         self.setWindowTitle('Заказ в Макдональдсе')
 
-        self.menu = {1: ['Чизбургер', self.quant1],
-                     2: ['Гамбургер', self.quant2],
-                     3: ['Кока-кола', self.quant3],
-                     4: ['Нагетсы', self.quant4]}
-        self.cb1 = QCheckBox('Чизбургер', self)
-        self.cb1.move(20, 40)
-        self.cb1.stateChanged.connect(lambda: self.ap(self.cb1, foodname='Чизбургер'))
-        self.quant1 = QLineEdit(self)
-        self.quant1.resize(50, 20)
+        self.cb = QCheckBox('Чизбургер', self)
+        self.cb.move(20, 40)
+        self.cb.stateChanged.connect(lambda: self.ap(self.cb, foodname='Чизбургер'))
 
-        self.cb2 = QCheckBox('Гамбургер', self)
-        self.cb2.move(20, 80)
-        self.cb2.stateChanged.connect(lambda: self.ap(self.cb2, foodname='Гамбургер'))
+        self.cb1 = QCheckBox('Гамбургер', self)
+        self.cb1.move(20, 80)
+        self.cb1.stateChanged.connect(lambda: self.ap(self.cb1, foodname='Гамбургер'))
 
-        self.cb3 = QCheckBox('Кока-кола', self)
-        self.cb3.move(20, 120)
-        self.cb3.stateChanged.connect(lambda: self.ap(self.cb3, foodname='Кока-кола'))
+        self.cb2 = QCheckBox('Кока-кола', self)
+        self.cb2.move(20, 120)
+        self.cb2.stateChanged.connect(lambda: self.ap(self.cb2, foodname='Кока-кола'))
 
-        self.cb4 = QCheckBox('Нагетсы', self)
-        self.cb4.move(20, 160)
-        self.cb4.stateChanged.connect(lambda: self.ap(self.cb4, foodname='Нагетсы'))
+        self.cb3 = QCheckBox('Нагетсы', self)
+        self.cb3.move(20, 160)
+        self.cb3.stateChanged.connect(lambda: self.ap(self.cb3, foodname='Нагетсы'))
 
         self.te = QTextEdit(self)
         self.te.setReadOnly(True)
