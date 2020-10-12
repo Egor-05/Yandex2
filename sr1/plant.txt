@@ -1,0 +1,1 @@
+When I pass the factory, the gates are always closed.

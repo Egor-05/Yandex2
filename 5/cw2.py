@@ -15,8 +15,6 @@ class Example(QWidget):
         self.setWindowTitle('Фокус со словами')
 
 
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = Example()
