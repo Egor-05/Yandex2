@@ -3,8 +3,7 @@ import sys
 
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton
 from PyQt5.QtWidgets import QLabel, QLineEdit
-from PyQt5.QtGui import QPixmap
-from PIL import Image, ImageDraw
+from PyQt5.QtGui import QPainter, QColor
 
 
 class Example(QWidget):
@@ -14,7 +13,7 @@ class Example(QWidget):
         self.s = 0
 
     def initUI(self):
-        self.setGeometry(510, 640, 510, 640)
+        self.setGeometry(640, 640, 640, 640)
         self.setWindowTitle('Арифмометр')
 
         self.btn = QPushButton('Показать', self)
@@ -47,24 +46,27 @@ class Example(QWidget):
         self.label.setText("n")
         self.label.move(300, 130)
 
-        self.image = QLabel(self)
-        self.image.move(25, 170)
-        self.image.resize(450, 450)
+    def paintEvent(self, event):
+        qp = QPainter()
+        qp.begin(self)
+        self.draw_flag(qp)
+        qp.end()
+
+    def draw_flag(self, qp):
+        if self.inp3.text() != '':
+            qp.setBrush(QColor(255, 255, 255))
+            side = int(self.inp1.text())
+            for i in range(int(self.inp3.text())):
+                x1 = (510 / 2) - side / 2
+                y1 = (510 / 2 + 130) - side / 2
+                x2 = x1 + side
+                y2 = y1 + side
+                qp.drawRect(x1, y1, x2, y2)
+                side *= float(self.inp2.text())
+
 
     def draw(self):
-        img = Image.new("RGB", (450, 450), '#FFFFFF')
-        draw = ImageDraw.Draw(img)
-        side = int(self.inp1.text())
-        for i in range(int(self.inp3.text())):
-            x1 = 225 - side / 2
-            y1 = 225 - side / 2
-            x2 = 225 + side / 2
-            y2 = 225 + side / 2
-            draw.rectangle((x1, y1, x2, y2), outline='#FF0000')
-            side *= float(self.inp2.text())
-        img.save('showimg.jpg')
-        self.pixmap = QPixmap('showimg.jpg')
-        self.image.setPixmap(self.pixmap)
+        self.update()
 
 
 if __name__ == '__main__':
