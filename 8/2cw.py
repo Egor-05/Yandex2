@@ -13,7 +13,7 @@ class Example(QWidget):
         self.s = 0
 
     def initUI(self):
-        self.setGeometry(640, 640, 640, 640)
+        self.setGeometry(510, 640, 510, 640)
         self.setWindowTitle('Арифмометр')
 
         self.btn = QPushButton('Показать', self)
@@ -54,16 +54,20 @@ class Example(QWidget):
 
     def draw_flag(self, qp):
         if self.inp3.text() != '':
-            qp.setBrush(QColor(255, 255, 255))
+            qp.setPen(QColor(255, 0, 0))
             side = int(self.inp1.text())
             for i in range(int(self.inp3.text())):
-                x1 = (510 / 2) - side / 2
-                y1 = (510 / 2 + 130) - side / 2
-                x2 = x1 + side
-                y2 = y1 + side
-                qp.drawRect(x1, y1, x2, y2)
+                x = (510 - side) // 2
+                y = 130 + x
+                x1 = x
+                x2 = x + side
+                y1 = y
+                y2 = y + side
+                qp.drawLine(x1, y1, x2, y1)
+                qp.drawLine(x1, y1, x1, y2)
+                qp.drawLine(x1, y2, x2, y2)
+                qp.drawLine(x2, y1, x2, y2)
                 side *= float(self.inp2.text())
-
 
     def draw(self):
         self.update()

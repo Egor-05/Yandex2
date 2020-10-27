@@ -1,11 +1,12 @@
 import sys
 from PyQt5.QtWidgets import QWidget, QSlider, QLabel, QApplication
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtGui import QPainter, QColor
 from PIL import Image, ImageDraw
 
 
 class Example(QWidget):
+    value = 1
 
     def __init__(self):
         super().__init__()
@@ -13,47 +14,39 @@ class Example(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setGeometry(410, 310, 410, 310)
+        self.setGeometry(410, 360, 410, 360)
         self.setWindowTitle('QSlider')
 
         sld = QSlider(self)
         sld.setFocusPolicy(Qt.NoFocus)
-        sld.setGeometry(30, 30, 30, 200)
+        sld.setGeometry(30, 30, 750, 200)
         sld.move(20, 20)
         sld.setValue(50)
         sld.valueChanged[int].connect(self.changeValue)
 
-        self.image = QLabel(self)
-        self.image.resize(300, 300)
-        self.image.move(70, 0)
-        self.pixmap = QPixmap('image1.png')
-        self.image.setPixmap(self.pixmap)
+    def paintEvent(self, event):
+        qp = QPainter()
+        qp.begin(self)
 
-        self.drawSmile()
+        self.drawSmile(qp)
+        qp.end()
 
-    def drawSmile(self):
-        width = 300
-        height = 300
-        im = Image.new('RGBA', (width, height), '#FFFFFF')
-        draw = ImageDraw.Draw(im)
-        draw.ellipse(((0, 0), (300, 300)), outline='#FF0000')
-        draw.ellipse(((50, 50), (125, 125)), outline="#FF0000")
-        draw.ellipse(((175, 50), (250, 125)), outline="#FF0000")
-        draw.arc(((50, 200), (280, 250)), 60, 190, fill='#FF0000')
-        im.save('image1.png', 'PNG')
-        self.pixmap = QPixmap('image1.png')
-        self.image.setPixmap(self.pixmap)
+
+    def drawSmile(self, qp):
+
+        qp.setPen(QColor(255, 0, 0))
+        a = self.value
+        qp.drawEllipse(0, 0, 350 * a, 350 * a)
+        qp.drawEllipse(50 * a, 50 * a, 100 * a, 100 * a)
+        qp.drawEllipse(200 * a, 50 * a, 100 * a, 100 * a)
+
+    def draw(self):
+        self.update()
 
     def changeValue(self, value):
-        width = 300 * value / 50
-        height = 300 * value / 50
-        im = Image.open('image1.png')
-        im.save('im.png', 'PNG')
-        im = Image.open('im.png')
-        im = im.resize((int(width), int(height)))
-        im.save('im.png', 'PNG')
-        self.pixmap = QPixmap('im.png')
-        self.image.setPixmap(self.pixmap)
+        self.value = value / 50
+        self.repaint()
+
 
 
 if __name__ == '__main__':

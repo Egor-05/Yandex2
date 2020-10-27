@@ -81,6 +81,7 @@ class Example(QWidget):
         self.btn_pm.setText('±')
         self.btn_pm.resize(61, 61)
         self.btn_pm.move(80, 356)
+        self.btn_pm.clicked.connect(self.pm)
 
         self.btnC = QPushButton(self)
         self.btnC.setText('C')
@@ -121,10 +122,12 @@ class Example(QWidget):
     def flt(self):
         if self.num1 == '':
             self.res.setText('ERROR')
-        elif self.num1 != '':
+        elif self.num1 != '' and self.num1.count('.') < 1 and self.znak == '':
             self.num1 += '.'
-        else:
-            self.num1 += '.'
+            self.res.setText(self.res.text() + '.')
+        elif self.num2 != '' and self.num2.count('.') < 1:
+            self.num2 += '.'
+            self.res.setText(self.res.text() + '.')
 
     def count(self):
         if self.znak == '/' and self.num2 == '0':
@@ -161,10 +164,10 @@ class Example(QWidget):
     def pm(self):
         if self.znak == '':
             self.num1 = str(-int(self.num1))
-            self.res.setText(str(-int(self.num1)))
+            self.res.setText(self.num1)
         else:
             self.num2 = str(-int(self.num2))
-            self.res.setText(str(-int(self.num2)))
+            self.res.setText(self.num2)
 
 
 if __name__ == '__main__':

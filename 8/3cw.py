@@ -18,29 +18,30 @@ class Example(QWidget):
         self.setGeometry(410, 310, 410, 310)
         self.setWindowTitle('QSlider')
 
-        im = Image.open("image.png")
-        im.save('image1.png', 'PNG')
+        im = Image.open("orig.jpg")
+        im.save('orig1.jpg')
 
         sld = QSlider(self)
         sld.setFocusPolicy(Qt.NoFocus)
         sld.setGeometry(30, 30, 30, 200)
         sld.move(20, 20)
+        sld.setMaximum(100)
+        sld.setValue(100)
         sld.valueChanged[int].connect(self.changeValue)
 
         self.image = QLabel(self)
         self.image.resize(300, 300)
         self.image.move(70, 0)
-        self.pixmap = QPixmap('image1.png')
+        self.pixmap = QPixmap('orig1.jpg')
         self.image.setPixmap(self.pixmap)
 
     def changeValue(self, value):
-        im = Image.open("image1.png")
-        pixels = im.load()
-        x, y = im.size
-        alpha = im.split()[-1]
-        print(alpha)
-        im.save('image1.png', 'PNG')
-        self.pixmap = QPixmap('image1.png')
+        img = Image.open('orig.jpg')
+
+        alpha = Image.new('L', img.size, int(2.55 + value))
+        img.putalpha(alpha)
+        img.save('orig1.png', 'PNG')
+        self.pixmap = QPixmap('orig1.png', 'PNG')
         self.image.setPixmap(self.pixmap)
 
 

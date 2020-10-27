@@ -101,10 +101,10 @@ class Example(QWidget):
         elif self.field[0][2] + self.field[1][1] + self.field[2][0] == 'xxx':
             self.stat.showMessage('Выйграл X!')
             self.win = True
-        elif self.field[2][0] + self.field[1][1] + self.field[2][0] == 'ooo':
+        elif self.field[0][2] + self.field[1][1] + self.field[2][0] == 'ooo':
             self.stat.showMessage('Выйграл O!')
             self.win = True
-        if self.s == 9:
+        if self.s == 9 and not self.win:
             self.stat.showMessage('Ничья!')
 
     def new_game(self):
