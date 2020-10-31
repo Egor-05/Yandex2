@@ -41,7 +41,7 @@ class MyWidget(QMainWindow, Ui_Dialog):
                 writer.writerows(students)
 
     def change(self):
-        with open('result.csv', encoding="utf8") as csvfile:
+        with open('result.csv') as csvfile:
             reader = csv.reader(csvfile, delimiter=';', quotechar='"')
             title = next(reader)
             self.tableWidget.setColumnCount(len(title))
